@@ -1,0 +1,81 @@
+const { Client,IntentsBitField } = require('discord.js');
+
+const ytdl = require('ytdl-core');
+const ytsr = require('ytsr');
+
+
+const client = new Client({
+    intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.GuildModeration,
+        IntentsBitField.Flags.GuildEmojisAndStickers,
+        IntentsBitField.Flags.GuildIntegrations,
+        IntentsBitField.Flags.GuildWebhooks,
+        IntentsBitField.Flags.GuildInvites,
+        IntentsBitField.Flags.GuildVoiceStates,
+        IntentsBitField.Flags.GuildPresences,
+        IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.GuildMessageTyping,
+        IntentsBitField.Flags.DirectMessages,
+        IntentsBitField.Flags.DirectMessageReactions,
+        IntentsBitField.Flags.DirectMessageTyping,
+        IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.GuildScheduledEvents,
+        IntentsBitField.Flags.AutoModerationConfiguration,
+        IntentsBitField.Flags.AutoModerationExecution,
+    ],
+});
+
+
+
+client.on('ready', (c) => {
+console.log(`${c.user.tag} is on `);
+
+client.user.setActivity({
+  name: "ROSTER",
+  type: ActivityType.Streaming,
+  url: 'https://www.youtube.com/watch?v=OqxHy8sCtvA&t=16s'
+})
+});
+
+client.on('interactionCreate', async (interaction) => {
+  try {
+    if (!interaction.isButton()) return;
+  await interaction.deferReply({ ephemeral: true });
+
+  const role = interaction.guild.roles.cache.get(interaction.customId);
+  if (!role) {
+    interaction.editReply({
+      content: "There is no role",
+    })
+    return;
+  }
+
+  const hasRole = interaction.member.roles.cache.has(role.id);
+
+  if (hasRole) {
+    await interaction.member.roles.remove(role);
+    await interaction.editReply(`the role ${role} has been removed.`);
+    return;
+  }
+
+  await interaction.member.roles.add(role);
+  await interaction.editReply(`the role ${role} has been added.`);
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+
+
+
+client.login("MTExODc4NDg4OTgwNjkxMzU5OA.GiH6sq.aur9rMmsgU_2V86kBbqVe19kxPtCVvWPaG0A1E");
+
+client.login("MTExODc4NDg4OTgwNjkxMzU5OA.GiH6sq.aur9rMmsgU_2V86kBbqVe19kxPtCVvWPaG0A1E");
+
+ node ./src/index.js
+
+ 
