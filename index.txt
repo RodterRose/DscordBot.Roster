@@ -25,10 +25,8 @@ const client = new Client({
     ],
 });
 
-client.login();
+client.login(process.env.TOKEN);
 
-client.login("MTExODc4NDg4OTgwNjkxMzU5OA.GiH6sq.aur9rMmsgU_2V86kBbqVe19kxPtCVvWPaG0A1E");
-
- node ./src/index.js
+Use To Run The code : node ./src/index.js
 
  
